@@ -1,0 +1,10 @@
+function palindrome(str) {
+  let newStr = str.replace(/\W+|_/g, "").toLowerCase();
+  let reverseStr = newStr.split("").reverse().join("");
+  if(newStr === reverseStr){
+    return true;  
+  }
+  return false;
+}
+
+palindrome("A man, a plan, a canal. Panama");
