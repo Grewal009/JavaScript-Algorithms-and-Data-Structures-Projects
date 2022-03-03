@@ -8,6 +8,24 @@ Write a function which takes a ROT13 encoded string as input and returns a decod
 
 All letters will be uppercase. Do not transform any non-alphabetic character (i.e. spaces, punctuation), but do pass them on.*/
 
+function rot13(str) {
+  let alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let answer = "";
+
+  for(let i=0;i<=str.length-1;i++){
+    if(alphabets.indexOf(str[i])>=13){
+      answer += alphabets[alphabets.indexOf(str[i])-13];
+      console.log(answer);
+    }else if(alphabets.indexOf(str[i])<13 && alphabets.indexOf(str[i])>-1 ){
+      answer += alphabets[alphabets.indexOf(str[i])+13];
+    }else{
+      answer += str[i];
+    }
+  }
+  return answer;
+}
+
+rot13("SERR PBQR PNZC");
 
 
 
