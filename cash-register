@@ -35,3 +35,49 @@ See below for an example of a cash-in-drawer array:
   ["ONE HUNDRED", 100]
 ]
 */
+
+function checkCashRegister(price, cash, cid) {
+  let changeDue = cash*100 - price*100;
+  //console.log(changeDue);
+  let totalCashAva = 0;
+  for(let currency of cid){
+    totalCashAva += currency[1]*100;
+    //console.log(totalCashAva);
+  }
+  
+  if(changeDue>totalCashAva){
+    return {status: "INSUFFICIENT_FUNDS", change: []};
+  }else if(changeDue==totalCashAva){
+    return {status:"CLOSED", change:cid};
+  }else{
+    let answer = [];
+    cid = cid.reverse();
+    let money = {"ONE HUNDRED": 10000,"TWENTY": 2000,"TEN": 1000,"FIVE": 500,"ONE": 100,"QUARTER": 25,"DIME": 10,"NICKEL": 5,"PENNY": 1};
+    //console.log(cid);
+    for(let currency of cid){
+      let holder = [currency[0],0];
+        currency[1]=currency[1]*100;
+        //console.log(currency[1]);
+        //console.log(money[currency[0]]);
+        while(changeDue>=money[currency[0]] && currency[1]>0){
+          changeDue -= money[currency[0]];
+          console.log(changeDue);
+          currency[1] -= money[currency[0]];
+          console.log(currency[1]);
+          holder[1] += money[currency[0]]/100;
+
+        }
+      console.log(holder);
+      if(holder[1]>0){
+        answer.push(holder);
+
+      }
+    }
+      if(changeDue>0){
+        return {status: "INSUFFICIENT_FUNDS", change: []};
+      }
+    return {status: "OPEN", change: answer};
+
+  }
+}
+checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
